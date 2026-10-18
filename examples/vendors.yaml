@@ -1,0 +1,74 @@
+vendors:
+  - name: AWS
+    service: Cloud infrastructure
+    supports: [Card payments authorisation, Customer onboarding, Regulatory reporting]
+    criticality: 5
+    data_access: sensitive
+    substitutability: hard
+    our_rto_hours: 1
+    vendor_recovery_hours: 1
+    exit_plan: true
+    assurance_report_date: 2026-05-15
+    bcp_tested_date: 2026-04-01
+    right_to_audit: true
+    incident_notification_hours: 24
+    regions: [ap-southeast-1, ap-southeast-3]
+    last_assessed: 2026-06-01
+
+  - name: CardSwitch
+    service: Card processing and scheme connectivity
+    supports: [Card payments authorisation]
+    criticality: 5
+    data_access: sensitive
+    substitutability: hard
+    our_rto_hours: 1
+    vendor_recovery_hours: 4            # slower than our 1h RTO: a gap the BIA can't fix alone
+    exit_plan: false
+    assurance_report_date: 2025-08-20   # stale
+    right_to_audit: true
+    incident_notification_hours: 4
+    regions: [ap-southeast-1]
+    hosted_on: aws
+    last_assessed: 2025-09-01
+
+  - name: VerifyID
+    service: KYC identity verification
+    supports: [Customer onboarding]
+    criticality: 4
+    data_access: sensitive
+    substitutability: months
+    our_rto_hours: 4
+    exit_plan: false
+    assurance_report_date: 2026-02-10
+    regions: [ap-southeast-1]
+    hosted_on: aws
+    sub_processors: [OCR-Cloud]
+    last_assessed: 2026-03-01
+
+  - name: SendFast SMS
+    service: OTP and transaction SMS
+    supports: [Card payments authorisation, Customer onboarding]
+    criticality: 4
+    data_access: personal
+    substitutability: easy
+    our_rto_hours: 1
+    vendor_recovery_hours: 2
+    exit_plan: true
+    assurance_report_date: 2026-01-12
+    bcp_tested_date: 2025-11-20
+    incident_notification_hours: 48
+    regions: [ap-southeast-1]
+    hosted_on: aws
+
+  - name: LedgerBI
+    service: Reporting dashboards
+    supports: [Regulatory reporting]
+    criticality: 2
+    data_access: internal
+    substitutability: easy
+    our_rto_hours: 72
+    vendor_recovery_hours: 24
+    exit_plan: true
+    assurance_report_date: 2026-03-30
+    regions: [eu-central-1, us-east-1]
+    last_assessed: 2026-04-15
